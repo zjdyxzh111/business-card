@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- 其他 head 内容（如已有的 meta、title 等） -->
+
+  <!-- 微信专属优化 -->
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" href="data:base64,">
+  
+  <style>
+    /* 防止微信点击闪烁 */
+    body {
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* 强制禁止缩放 */
+    html {
+      touch-action: manipulation;
+    }
+  </style>
+
+  <!-- 其他 head 内容 -->
+</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>周杰 - 梅特勒托利多商务名片</title>
+    <style>
+        /* 标准化重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        :root {
+            --deep-blue: #0A1932;
+            --gradient-end: #2A4A7E;
+            --light-accent: rgba(255,255,255,0.15);
+            --text-white: rgba(255,255,255,0.95);
+            --text-dark: #2A4A7E;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f0f2f5;
+            font-family: '思源黑体', 'Microsoft YaHei', system-ui, sans-serif;
+        }
+
+        /* 卡片容器 */
+        .card-container {
+            width: 90mm;
+            height: 54mm;
+            perspective: 1000px;
+        }
+
+        /* 双面卡片系统 */
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        /* 正反面基础样式 */
+        .front,
+        .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: linear-gradient(145deg, 
+                var(--deep-blue) 0%, 
+                var(--gradient-end) 100%);
+            border-radius: 8px;
+            padding: 4mm;
+            box-shadow: 0 4mm 8mm rgba(0,0,0,0.2);
+            color: var(--text-white);
+            overflow: hidden;
+        }
+
+        /* 动态光效 */
+        .card::before {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 20mm;
+            background: linear-gradient(90deg,
+                rgba(255,255,255,0) 0%,
+                rgba(255,255,255,0.15) 50%,
+                rgba(255,255,255,0) 100%);
+            transform: rotate(-15deg);
+            top: 15%;
+            left: -10%;
+            pointer-events: none;
+        }
+
+        /* 背面翻转 */
+        .back {
+            transform: rotateY(180deg);
+        }
+
+        /* 品牌标识系统 */
+        .branding {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3mm;
+            padding-bottom: 3mm;
+            position: relative;
+        }
+
+        .branding::after {
+            content: '';
+            width: 120%;
+            height: 1px;
+            background: linear-gradient(90deg,
+                var(--deep-blue) 0%,
+                rgba(255,255,255,0.3) 50%,
+                var(--deep-blue) 100%);
+            position: absolute;
+            bottom: -3mm;
+            left: -10%;
+        }
+
+        .logo {
+            width: 12mm;
+            height: 12mm;
+            background: linear-gradient(145deg, 
+                #6C8CD5 0%,
+                #8FC1E3 50%,
+                #B0D4ED 100%);
+            clip-path: polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%);
+            margin-right: 4mm;
+        }
+
+        /* 信息架构 */
+        .name {
+            font: bold 18pt/1.2 '汉仪旗黑-85N', 'Microsoft YaHei', sans-serif;
+            margin: 2mm 0;
+            color: var(--text-white);
+        }
+
+        .position {
+            font: 11pt/1.4 '思源黑体 Medium';
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 3mm;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2mm 4mm;
+            padding-left: 3mm;
+            border-left: 1px solid var(--light-accent);
+        }
+
+        .contact-item {
+            font: 8.5pt/1.4 'Microsoft YaHei';
+            white-space: nowrap;
+            color: var(--text-white);
+        }
+
+        /* 二维码系统 */
+        .qr-section {
+            margin-top: 3mm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .qr-code {
+            width: 22mm;
+            height: 22mm;
+            background: var(--light-accent);
+            border-radius: 3px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* 翻转状态 */
+        .flipped {
+            transform: rotateY(180deg);
+        }
+
+        /* 印刷适配 */
+        @media print {
+            @page {
+                size: 90mm 54mm;
+                margin: 0;
+            }
+            body {
+                background: transparent !important;
+            }
+            .card {
+                transform: none !important;
+                box-shadow: none !important;
+            }
+            .front, .back {
+                position: static;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container" onclick="this.querySelector('.card').classList.toggle('flipped')">
+        <div class="card">
+            <!-- 正面 -->
+            <div class="front">
+                <div class="branding">
+                    <div class="logo"></div>
+                    <div>
+                        <h2 style="margin:0;font-size:10pt;letter-spacing:0.5px">温州利多电子有限公司</h2>
+                        <p style="margin:0;font-size:8pt;opacity:0.9">您身边的称量专家 </p>
+        <span style="font:8pt '思源黑体 Light';opacity:0.7;cursor:pointer">点击翻转获取二维码</span>
+                            </div>
+                </div>
+                
+                <div>
+                    <h1 class="name">周杰</h1>
+                    <p class="position">梅特勒托利多销售经理 / 产品顾问</p>
+                    <div class="contact-grid">
+                        <div class="contact-item">📞 188 6819 0685</div>
+                        <div class="contact-item">📧 jie.zhou@mtvars.com</div>
+                        <div class="contact-item">📍 华盟商务广场1204室</div>
+                        <div class="contact-item">💬 微信：zjgg4199</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 背面 -->
+            <div class="back">
+                <div class="branding">
+                    <div class="logo"></div>
+                    <h2 style="margin:0;font-size:10pt">精准测量解决方案</h2>
+                </div>
+                
+                <div class="qr-section">
+                    <div style="width:60%">
+                        <p style="font-size:8pt;margin:2mm 0">ISO 9001认证企业</p>
+                        <p style="font-size:8pt;margin:2mm 0">23项技术专利认证</p>
+                        <p style="font-size:7pt;opacity:0.8">扫码访问产品中心</p>
+                    </div>
+<img class="qr-code" 
+     src="images/myqrcode.png" 
+     alt="企业二维码"
+     width="160"
+     height="160">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
